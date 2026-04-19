@@ -5,8 +5,8 @@ import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-
 import PaintSplashCanvas from "@/components/PaintSplashCanvas";
 import ContactForm from "@/components/ContactForm";
 import CanvasImageSequence from "@/components/CanvasImageSequence";
-import NativePaintDrip from "@/components/NativePaintDrip";
 import CaseStudy from "@/components/CaseStudy";
+import AboutSection from "@/components/AboutSection";
 import { Rubik } from "next/font/google";
 
 const rubik = Rubik({
@@ -124,19 +124,7 @@ export default function Home() {
       {/* -mt-1 prevents 1px sub-pixel gaps from showing the dark background underneath */}
       <div className="relative z-50 w-full -mt-1">
         <div className="bg-[#3d7db3] pt-1 relative">
-          <CaseStudy 
-            number="01"
-            title="Neon Void"
-            category="Brand Identity, UI/UX Design"
-            description="A brutalist digital platform redefining luxury commerce. Bold typography, stark contrasts, and immersive interactions that break the mold of traditional e-commerce."
-            href="#neon-void"
-            color="transparent" 
-            imageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
-            subImages={[
-              { src: "https://images.unsplash.com/photo-1614850523459-c2f4c699052e?q=80&w=1200&auto=format&fit=crop", caption: "Deep aesthetic explorations." },
-              { src: "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop", caption: "Color palette iterations." }
-            ]}
-          />
+          <AboutSection />
           
           {/* --- Smooth Sweeping Curve Transition --- */}
           <div className="absolute top-full -mt-[1px] left-0 w-full z-50 pointer-events-none text-[#3d7db3]">
@@ -153,11 +141,13 @@ export default function Home() {
             <NativePaintDrip />
           </div> */}
           <CaseStudy 
-            number="02"
+            number="01"
             title="Mind Climber"
             category="Brand Identity, UI/UX Design"
-            description="A surreal mountain traversal experience redefining the mental boundaries of players. Bold visuals merging industrial grunge with ethereal vistas."
-            href="#mindclimber"
+            description="Mind Climber is a digital mental health concept where biomarkers and behavioral data are used to guide users toward activities that may improve their well-being. To make a complex and heavy subject feel more approachable, I used mountain climbing as a metaphor for recovery, building a visual direction around support, guidance, and step-by-step progress. In this project, I worked on the concept, UX, and visual identity."
+            href="https://www.figma.com/proto/pBSVkPTwRstkDhVUToUfIF/Erik_Karlsson_Mind_Climber?node-id=477-9911&viewport=6743%2C526%2C0.51&t=6X6NP3jk7zavxHAq-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=477%3A9911&show-proto-sidebar=1&page-id=477%3A7527"
+            ctaText="View Prototype"
+            externalLink={true}
             color="#160800" // Kept exactly from previous Aura OS setting
             media={[
               { src: "/Images/MindClimber/Loggo.mp4", type: "video" },
@@ -174,16 +164,38 @@ export default function Home() {
           />
         </div>
         <CaseStudy 
-          number="03"
-          title="Kinetics"
-          category="Creative Direction, WebGL"
-          description="Interactive real-time audio visualization using raw WebGL. The geometry listens and reacts to frequencies, producing mesmerizing, generative landscapes."
-          href="#kinetics"
+          number="02"
+          title="T-Suite"
+          category="Creative Direction, Motion Graphics"
+          description="T-Suite Wrapped 2026 was a concept project for T-Hive where I transformed operational data and annual statistics into an engaging, shareable experience. Instead of a traditional corporate expression, I created a “wrapped” inspired by 90s retro games, using pixel graphics, animation, and sound to give the data more personality and stronger storytelling."
+          href="#thive"
+          hideCta={true}
           color="#050a1a" // Example massive deep blue background
-          imageSrc="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop"
+          heroSplitReverse={true}
+          heroSplitMedia={[
+            { src: "/Images/T-HiveWrapped/Erik_Karlsson_T-Hive-Wrapped.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] object-bottom md:object-right" },
+            { src: "/Images/T-HiveWrapped/T-hive-mobile.png", type: "image", caption: "T-Hive mobile app design." }
+          ]}
+        />
+
+        <CaseStudy 
+          number="03"
+          title="Vyse Tech"
+          category="research, UX/UI Design"
+          description="Helped a startup develop a new website to better highlight their product and make it more alive. Through analysis of their target audience and competitors, we developed a page that better highlighted their brand and product."
+          href="https://wondrous-intuition-914204.framer.app/"
+          ctaText="View Webpage"
+          externalLink={true}
+          color="#1a1c29" // Dark tech slate
+          media={[
+            { src: "/Images/Vyse Tech/vyse techOver.png", type: "image" },
+            { src: "/Images/Vyse Tech/vyse tech2.png", type: "image" },
+            { src: "/Images/Vyse Tech/vysetech.png", type: "image" }
+          ]}
+          reverseSubImages={true}
           subImages={[
-            { src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop", caption: "Audio reactive geometry." },
-            { src: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop", caption: "Waveform analysis view." }
+            { src: "/Images/Vyse Tech/Instagram.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] object-bottom md:object-right" },
+            { src: "/Images/Vyse Tech/vyse techOver2.png", type: "image", caption: "Vyse Tech interface overview." }
           ]}
         />
 
@@ -195,7 +207,7 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl mx-auto relative z-20">
             {[
-              "Figma", "Next.js", "Framer Motion", "Three.js", "GSAP", "Creative Cloud", "WebGL", "Vercel", "Tailwind CSS", "Cinema4D"
+              "Figma", "Make", "Lovable", "Spline", "Framer", "Webflow", "Antigravity", "React", "Next.js", "Creative Cloud", "Vercel", "Tailwind CSS"
             ].map((tool) => (
               <div key={tool} className="py-4 px-8 border border-white/10 rounded-full text-2xl md:text-3xl font-light text-white hover:bg-white hover:text-black transition-colors cursor-pointer pointer-events-auto">
                 {tool}

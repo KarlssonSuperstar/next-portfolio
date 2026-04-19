@@ -79,7 +79,7 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
                 {/* Overlay Mute Toggle Button */}
                 <button
                   onClick={toggleMute}
-                  className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-0 group-hover:opacity-100"
+                  className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
                   aria-label={isMuted ? "Unmute video" : "Mute video"}
                 >
                   {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}

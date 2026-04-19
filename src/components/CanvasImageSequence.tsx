@@ -8,7 +8,7 @@ interface Props {
   frameCount?: number;
 }
 
-export default function CanvasImageSequence({ scrollProgress, frameCount = 345 }: Props) {
+export default function CanvasImageSequence({ scrollProgress, frameCount = 320 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
