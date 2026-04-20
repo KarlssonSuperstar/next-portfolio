@@ -32,8 +32,49 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
 
+  // Touch state for swipe handling
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % items.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (touchStartX !== null && touchEndX !== null) {
+      const distance = Math.abs(touchStartX - touchEndX);
+      if (distance >= minSwipeDistance) {
+        return; // Ignore click if it was a significant swipe
+      }
+    }
+    handleNext();
   };
 
   const handleSelect = (idx: number) => {
@@ -54,7 +95,10 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
       {/* Main Image/Video Container */}
       <div 
         className="w-full aspect-video relative overflow-hidden group cursor-pointer"
-        onClick={handleNext}
+        onClick={handleClick}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.div

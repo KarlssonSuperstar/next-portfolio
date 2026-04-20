@@ -5,6 +5,18 @@ import { motion } from "framer-motion";
 export default function AboutSection() {
   return (
     <section className="relative w-full py-24 md:py-48 px-6 md:px-12 lg:px-24">
+
+      {/* Mobile-only top divider — same ornament as between sections */}
+      <div className="md:hidden w-full flex items-center justify-center relative mb-16 -mt-12">
+        <div className="w-full h-[1px] bg-white/10" />
+        <div className="absolute w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-[#3d7db3] rotate-45">
+          <div className="w-1.5 h-1.5 border border-white/40" />
+          <div className="w-1.5 h-1.5 border border-white/40 absolute -left-1" />
+          <div className="w-1.5 h-1.5 border border-white/40 absolute -right-1" />
+          <div className="w-1.5 h-1.5 border border-white/40 absolute -top-1" />
+          <div className="w-1.5 h-1.5 border border-white/40 absolute -bottom-1" />
+        </div>
+      </div>
       <div className="max-w-screen-xl mx-auto w-full relative z-10 flex flex-col md:flex-row gap-16 md:gap-0">
         
         {/* Desktop Center Rule with Ornament */}

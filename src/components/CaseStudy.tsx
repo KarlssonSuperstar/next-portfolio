@@ -28,6 +28,7 @@ export interface MediaContent {
   objectFit?: "cover" | "contain" | "fill";
   type?: "image" | "video";
   className?: string;
+  containerClassName?: string;
 }
 
 interface CaseStudyProps {
@@ -71,7 +72,7 @@ export default function CaseStudy({
     return (
       <div className={`flex flex-col md:flex-row w-full gap-12 md:gap-0 ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24'}`}>
         {/* Left Image */}
-        <div className={`w-full ${reverse ? 'md:w-[35%]' : 'md:w-[65%]'} flex flex-col`}>
+        <div className={items[0].containerClassName || `w-full ${reverse ? 'md:w-[35%]' : 'md:w-[65%]'} flex flex-col`}>
           <motion.div 
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             whileInView={{ clipPath: "inset(0 0% 0 0)" }}
@@ -105,7 +106,7 @@ export default function CaseStudy({
         </div>
 
         {/* Right Image */}
-        <div className={`w-full ${reverse ? 'md:w-[65%]' : 'md:w-[35%]'} flex flex-col`}>
+        <div className={items[1].containerClassName || `w-full ${reverse ? 'md:w-[65%]' : 'md:w-[35%]'} flex flex-col`}>
           <motion.div 
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             whileInView={{ clipPath: "inset(0 0% 0 0)" }}

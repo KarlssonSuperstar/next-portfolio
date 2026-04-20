@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Linkedin, Instagram, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContactForm() {
@@ -139,7 +139,84 @@ export default function ContactForm() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* ─── See me here ─── */}
+        <div className="text-center space-y-6 pt-4">
+          <p className="text-white/40 text-sm uppercase tracking-[0.2em]">See me here</p>
+          <div className="flex items-center justify-center gap-8">
+
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/erik-karlsson-ab00a257"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-white/40 hover:text-white transition-colors duration-200"
+            >
+              <motion.span whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }} className="block">
+                <Linkedin className="w-6 h-6" />
+              </motion.span>
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/xelight/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="text-white/40 hover:text-white transition-colors duration-200"
+            >
+              <motion.span whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }} className="block">
+                <Instagram className="w-6 h-6" />
+              </motion.span>
+            </a>
+
+            {/* Phone with tooltip */}
+            <PhoneTooltip />
+
+          </div>
+        </div>
+
       </div>
     </section>
+  );
+}
+
+function PhoneTooltip() {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="relative flex items-center justify-center"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <motion.a
+        href="tel:+46730471288"
+        aria-label="Phone"
+        className="text-white/40 hover:text-white transition-colors duration-200"
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Phone className="w-6 h-6" />
+      </motion.a>
+
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            key="tooltip"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.18 }}
+            className="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white text-[#050505] text-xs font-semibold tracking-wide px-3 py-1.5 rounded-md shadow-lg pointer-events-none"
+          >
+            (+46) 730 471 288
+            {/* Small arrow */}
+            <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-white" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

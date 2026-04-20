@@ -1,18 +1,47 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
 import PaintSplashCanvas from "@/components/PaintSplashCanvas";
 import ContactForm from "@/components/ContactForm";
 import CanvasImageSequence from "@/components/CanvasImageSequence";
 import CaseStudy from "@/components/CaseStudy";
 import AboutSection from "@/components/AboutSection";
+import IndexMenu from "@/components/IndexMenu";
+import MobileMenu from "@/components/MobileMenu";
 import { Rubik } from "next/font/google";
 
 const rubik = Rubik({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
 });
+
+function HorizontalDivider({ color = "#050505", align = "split" }: { color?: string, align?: "split" | "center" }) {
+  return (
+    <div className={`w-full relative z-30 flex items-center justify-center pointer-events-none ${align === 'split' ? 'pb-12 md:pb-0' : 'py-8'}`}>
+      <div className={`flex flex-col md:flex-row w-full relative ${align === 'split' ? 'gap-8 md:gap-16 max-w-screen-2xl mx-auto px-6 md:px-12' : 'max-w-6xl mx-auto px-6'}`}>
+        {/* Invisible spacer matching the CaseStudy Sidebar width offset exactly */}
+        {align === "split" && (
+          <div className="hidden md:flex flex-col items-center w-32 flex-shrink-0 pointer-events-none" />
+        )}
+        {/* Active tracking width aligning perfectly with Content Area block */}
+        <div className="flex-1 flex items-center justify-center relative">
+          <div className="w-full h-[1px] bg-white/10" />
+          <div 
+            className="absolute w-8 h-8 rounded-full border border-white/20 flex items-center justify-center rotate-45 z-10"
+            style={{ backgroundColor: color }}
+          >
+            <div className="w-1.5 h-1.5 border border-white/40" />
+            <div className="w-1.5 h-1.5 border border-white/40 absolute -left-1" />
+            <div className="w-1.5 h-1.5 border border-white/40 absolute -right-1" />
+            <div className="w-1.5 h-1.5 border border-white/40 absolute -top-1" />
+            <div className="w-1.5 h-1.5 border border-white/40 absolute -bottom-1" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,6 +75,33 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-white selection:bg-white/20 selection:text-white font-sans bg-[#d9e4ec]">
+      {/* ─── MOBILE NAV (shown only on mobile) ─── */}
+      <MobileMenu />
+
+      {/* ─── DESKTOP OVERLAY (hidden on mobile) ─── */}
+      <div className="fixed inset-0 pointer-events-none z-[200] hidden md:flex justify-center px-4 md:px-0">
+        <div className="w-full lg:w-[calc(100%-48px)] max-w-[1440px] h-full relative">
+          {/* Top-left home link — SVG logo in white */}
+          <a
+            href="/"
+            className="absolute top-12 left-4 pointer-events-auto text-white hover:text-white/70 transition-colors"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Images/Me/Artboard 1.svg"
+              alt="Karlsson"
+              className="w-20 h-auto"
+              style={{ filter: "invert(1)" }}
+            />
+          </a>
+          <IndexMenu />
+          {/* Desktop scroll-to-top — absolute inside content container */}
+          <ScrollToTopButton mode="desktop" />
+        </div>
+      </div>
+
+      {/* Mobile scroll-to-top — fixed to viewport, hidden on desktop */}
+      <ScrollToTopButton mode="mobile" />
       <div className="w-full lg:w-[calc(100%-48px)] max-w-[1440px] mx-auto bg-[#050505] min-h-screen relative lg:my-6">
       
       {/* 350vh container for scrollytelling Hero section tightly wrapped */}
@@ -123,7 +179,7 @@ export default function Home() {
       {/* Case Studies (Native Document Flow) */}
       {/* -mt-1 prevents 1px sub-pixel gaps from showing the dark background underneath */}
       <div className="relative z-50 w-full -mt-1">
-        <div className="bg-[#3d7db3] pt-1 relative">
+        <div id="about" className="bg-[#3d7db3] pt-1 relative">
           <AboutSection />
           
           {/* --- Smooth Sweeping Curve Transition --- */}
@@ -135,7 +191,7 @@ export default function Home() {
         </div>
 
         {/* Wrapper for MindClimber that also contains the overlayed paint drip transition */}
-        <div className="relative w-full">
+        <div id="mind-climber" className="relative w-full">
           {/* Native paint drip disabled to favor the clean curve transition from the section above */}
           {/* <div className="absolute top-0 left-0 w-full h-full z-30 pointer-events-none">
             <NativePaintDrip />
@@ -163,8 +219,12 @@ export default function Home() {
             className="!pt-[10rem] md:!pt-[21.3rem]"
           />
         </div>
-        <CaseStudy 
-          number="02"
+
+        <HorizontalDivider color="#050a1a" />
+
+        <div id="t-suite">
+          <CaseStudy 
+            number="02"
           title="T-Suite"
           category="Creative Direction, Motion Graphics"
           description="T-Suite Wrapped 2026 was a concept project for T-Hive where I transformed operational data and annual statistics into an engaging, shareable experience. Instead of a traditional corporate expression, I created a “wrapped” inspired by 90s retro games, using pixel graphics, animation, and sound to give the data more personality and stronger storytelling."
@@ -177,7 +237,11 @@ export default function Home() {
             { src: "/Images/T-HiveWrapped/T-hive-mobile.png", type: "image", caption: "T-Hive mobile app design." }
           ]}
         />
+        </div>
 
+        <HorizontalDivider color="#1a1c29" />
+
+        <div id="vyse-tech">
         <CaseStudy 
           number="03"
           title="Vyse Tech"
@@ -192,15 +256,26 @@ export default function Home() {
             { src: "/Images/Vyse Tech/vyse tech2.png", type: "image" },
             { src: "/Images/Vyse Tech/vysetech.png", type: "image" }
           ]}
-          reverseSubImages={true}
           subImages={[
-            { src: "/Images/Vyse Tech/Instagram.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] object-bottom md:object-right" },
-            { src: "/Images/Vyse Tech/vyse techOver2.png", type: "image", caption: "Vyse Tech interface overview." }
+            { 
+              src: "/Images/Vyse Tech/vyse techOver2.png", 
+              type: "image", 
+              caption: "Vyse Tech interface overview.",
+              containerClassName: "w-full md:flex-1 flex flex-col"
+            },
+            { 
+              src: "/Images/Vyse Tech/Instagram.mp4", 
+              type: "video", 
+              objectFit: "contain", 
+              className: "!h-auto w-full md:!w-auto md:!h-[600px] object-bottom md:object-right",
+              containerClassName: "w-full md:w-auto flex flex-col" 
+            }
           ]}
         />
+        </div>
 
         {/* Toolkit Section mapped statically */}
-        <section className="py-16 md:py-32 px-6 w-full text-center bg-[#050505] min-h-[50vh] flex flex-col justify-center border-t border-white/5 relative z-20">
+        <section id="tools" className="py-16 md:py-32 px-6 w-full text-center bg-[#050505] min-h-[50vh] flex flex-col justify-center border-t border-white/5 relative z-20">
           <h2 className="text-5xl md:text-[6rem] font-black tracking-tighter uppercase mb-16 leading-none">
             The Apps & Tools I Use
           </h2>
@@ -215,10 +290,12 @@ export default function Home() {
             ))}
           </div>
         </section>
+        
+        <HorizontalDivider align="center" />
       </div>
 
       {/* Static Footer: Contact Form */}
-      <div className="relative z-10 bg-[#050505]">
+      <div id="contact" className="relative z-10 bg-[#050505]">
         <ContactForm />
       </div>
 
@@ -260,5 +337,44 @@ function Beat({
         {children}
       </div>
     </motion.div>
+  );
+}
+
+function ScrollToTopButton({ mode = "desktop" }: { mode?: "desktop" | "mobile" }) {
+  const [visible, setVisible] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest: number) => {
+    setVisible(latest > 100);
+  });
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  const positionClass =
+    mode === "mobile"
+      ? "fixed bottom-12 right-4 md:hidden z-[200]"
+      : "absolute bottom-12 right-4 pointer-events-auto";
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          key="scroll-top"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 260, damping: 28 }}
+          onClick={scrollToTop}
+          className={`${positionClass} w-12 h-12 rounded-full bg-[#3d7db3] hover:bg-[#4e8ec4] text-white flex items-center justify-center transition-colors`}
+          aria-label="Scroll to top"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 }
