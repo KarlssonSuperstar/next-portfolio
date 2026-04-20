@@ -69,9 +69,12 @@ export default function Home() {
     restDelta: 0.001
   });
 
+  // Double-speed canvas: complete the full sequence in the first half of scroll
+  const doubleSpeedCanvasProgress = useTransform(smoothCanvasProgress, [0, 0.5], [0, 1], { clamp: true });
+
   // By using the instant scrollYProgress instead of smoothProgress (the spring), we guarantee 
   // the background turns fully blue mechanically, removing any lagging dark edges on fast scroll.
-  const bgColor = useTransform(scrollYProgress, [0.40, 0.60], ["#050505", "#3d7db3"]);
+  const bgColor = useTransform(scrollYProgress, [0.20, 0.40], ["#050505", "#3d7db3"]);
 
   return (
     <main className="min-h-screen text-white selection:bg-white/20 selection:text-white font-sans bg-[#d9e4ec]">
@@ -105,7 +108,7 @@ export default function Home() {
       <div className="w-full lg:w-[calc(100%-48px)] max-w-[1440px] mx-auto bg-[#050505] min-h-screen relative lg:my-6">
       
       {/* 350vh container for scrollytelling Hero section tightly wrapped */}
-      <motion.div ref={containerRef} className="relative h-[350vh]" style={{ backgroundColor: bgColor }}>
+      <motion.div ref={containerRef} className="relative h-[175vh]" style={{ backgroundColor: bgColor }}>
         
         {/* Sticky Canvas Container */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center items-center">
@@ -120,7 +123,7 @@ export default function Home() {
 
           {/* Image Sequence layer (natively scrolls along with the page instead of fading) */}
           <motion.div className="absolute inset-0 z-0 mix-blend-screen">
-            <CanvasImageSequence scrollProgress={smoothCanvasProgress} />
+            <CanvasImageSequence scrollProgress={doubleSpeedCanvasProgress} />
           </motion.div>
 
           {/* Beat A (Hero) */}
