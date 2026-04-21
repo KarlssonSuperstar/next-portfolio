@@ -41,7 +41,8 @@ export default function AboutSection() {
             className="text-base md:text-lg lg:text-xl font-light leading-relaxed opacity-90 text-white/90 space-y-8"
           >
             <p>
-              I am a digital designer based in Gothenburg. A creator who builds and runs customized experiences. Former front-end developer who built websites for companies ranging from car brands to e-commerce for a decade but has now transitioned to digital designer.
+              I am a digital designer based in Gothenburg.<br />
+              A creator who builds and runs customized experiences. Former front-end developer who built websites for companies ranging from car brands to e-commerce for a decade but has now transitioned to digital designer.
             </p>
             <p>
               Take a look at some of my work below.

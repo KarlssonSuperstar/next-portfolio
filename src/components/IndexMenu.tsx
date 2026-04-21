@@ -64,7 +64,11 @@ export default function IndexMenu() {
             className="flex flex-col items-start text-white"
           >
             {/* Title row */}
-            <div className="flex items-center gap-1 mb-1 cursor-pointer group" onClick={handleMenuClick}>
+            <button
+              className="flex items-center gap-1 mb-1 cursor-pointer group"
+              onClick={handleMenuClick}
+              aria-label="Close index menu"
+            >
               <motion.div
                 animate={{ rotate: 45 }}
                 className="w-5 h-5 flex items-center justify-center text-white/40 group-hover:text-white transition-colors"
@@ -72,9 +76,10 @@ export default function IndexMenu() {
                 <PlusIcon />
               </motion.div>
               <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#3d7db3]">Index</span>
-            </div>
+            </button>
 
             {/* Item list */}
+            <nav aria-label="Page sections">
             <motion.ul
               className="flex flex-col gap-0 pb-2"
               initial="closed"
@@ -104,6 +109,7 @@ export default function IndexMenu() {
                 </motion.li>
               ))}
             </motion.ul>
+            </nav>
           </motion.div>
         )}
 
@@ -116,7 +122,12 @@ export default function IndexMenu() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={SPRING}
             className="flex flex-col items-center gap-3 cursor-pointer text-white"
+            role="button"
+            tabIndex={0}
+            aria-label="Open index menu"
+            aria-expanded={isMenuOpen}
             onClick={handleMenuClick}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuClick(); } }}
           >
             <motion.div
               className="w-12 h-12 rounded-full bg-[#3d7db3] hover:bg-[#4e8ec4] transition-colors flex items-center justify-center"

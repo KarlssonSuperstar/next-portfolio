@@ -4,26 +4,12 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import MediaCarousel, { MediaType } from "./MediaCarousel";
-
-const VolumeOnIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-  </svg>
-);
-
-const VolumeOffIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <line x1="23" y1="9" x2="17" y2="15"></line>
-    <line x1="17" y1="9" x2="23" y2="15"></line>
-  </svg>
-);
+import { VolumeOnIcon, VolumeOffIcon } from "./icons";
 
 export interface MediaContent {
   src: string;
   caption?: string;
+  description?: string;
   objectPosition?: string;
   objectFit?: "cover" | "contain" | "fill";
   type?: "image" | "video";
@@ -83,6 +69,7 @@ export default function CaseStudy({
             {items[0].type === 'video' ? (
               <>
                 <video src={items[0].src} autoPlay loop muted={isMutedLeft} playsInline style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[0].className || ''}`} />
+                {items[0].description && <p className="sr-only">{items[0].description}</p>}
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
                   className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
@@ -117,6 +104,7 @@ export default function CaseStudy({
             {items[1].type === 'video' ? (
               <>
                 <video src={items[1].src} autoPlay loop muted={isMutedRight} playsInline style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[1].className || ''}`} />
+                {items[1].description && <p className="sr-only">{items[1].description}</p>}
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
                   className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
@@ -205,7 +193,7 @@ export default function CaseStudy({
           ) : null}
 
           {/* Split Typography Grids */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 [@media(min-width:1445px)]:grid-cols-2 gap-12">
             
             {/* Left Col: Title & Meta */}
             <motion.div

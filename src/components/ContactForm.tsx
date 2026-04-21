@@ -66,7 +66,7 @@ export default function ContactForm() {
                     className="w-full bg-transparent border-b border-white/20 py-4 px-2 text-white/90 focus:outline-none focus:border-white/80 transition-colors peer placeholder-transparent disabled:opacity-50"
                     placeholder="Name"
                   />
-                  <label htmlFor="name" className="absolute left-2 -top-3 text-xs text-white/40 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
+                  <label htmlFor="name" className="absolute left-2 -top-3 text-xs text-white/60 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
                     Name
                   </label>
                 </div>
@@ -81,7 +81,7 @@ export default function ContactForm() {
                     className="w-full bg-transparent border-b border-white/20 py-4 px-2 text-white/90 focus:outline-none focus:border-white/80 transition-colors peer placeholder-transparent disabled:opacity-50"
                     placeholder="Email"
                   />
-                  <label htmlFor="email" className="absolute left-2 -top-3 text-xs text-white/40 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
+                  <label htmlFor="email" className="absolute left-2 -top-3 text-xs text-white/60 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
                     Email
                   </label>
                 </div>
@@ -96,7 +96,7 @@ export default function ContactForm() {
                     className="w-full bg-transparent border-b border-white/20 py-4 px-2 text-white/90 focus:outline-none focus:border-white/80 transition-colors peer placeholder-transparent resize-none disabled:opacity-50"
                     placeholder="Message"
                   />
-                  <label htmlFor="message" className="absolute left-2 -top-3 text-xs text-white/40 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
+                  <label htmlFor="message" className="absolute left-2 -top-3 text-xs text-white/60 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-white/60 pointer-events-none">
                     Message
                   </label>
                 </div>
@@ -142,7 +142,7 @@ export default function ContactForm() {
 
         {/* ─── See me here ─── */}
         <div className="text-center space-y-6 pt-4">
-          <p className="text-white/40 text-sm uppercase tracking-[0.2em]">See me here</p>
+          <p className="text-white/60 text-sm uppercase tracking-[0.2em]">See me here</p>
           <div className="flex items-center justify-center gap-8">
 
             {/* LinkedIn */}
@@ -178,6 +178,11 @@ export default function ContactForm() {
         </div>
 
       </div>
+
+      {/* WCAG notice */}
+      <p className="mt-12 text-center text-white/25 text-xs tracking-widest uppercase">
+        WCAG 2.1 AA Compliant
+      </p>
     </section>
   );
 }
@@ -190,10 +195,12 @@ function PhoneTooltip() {
       className="relative flex items-center justify-center"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
     >
       <motion.a
         href="tel:+46730471288"
-        aria-label="Phone"
+        aria-label="Call (+46) 730 471 288"
         className="text-white/40 hover:text-white transition-colors duration-200"
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.95 }}

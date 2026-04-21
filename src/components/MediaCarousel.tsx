@@ -6,27 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 export type MediaType = {
   src: string;
   type: "video" | "image";
+  description?: string;
 };
 
 interface MediaCarouselProps {
   items: MediaType[];
 }
 
-const VolumeOnIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-  </svg>
-);
-
-const VolumeOffIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <line x1="23" y1="9" x2="17" y2="15"></line>
-    <line x1="17" y1="9" x2="23" y2="15"></line>
-  </svg>
-);
+import { VolumeOnIcon, VolumeOffIcon } from "./icons";
 
 export default function MediaCarousel({ items }: MediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -95,7 +82,11 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
       {/* Main Image/Video Container */}
       <div 
         className="w-full aspect-video relative overflow-hidden group cursor-pointer"
+        role="button"
+        tabIndex={0}
+        aria-label={`Slide ${activeIndex + 1} of ${items.length}. Press to advance.`}
         onClick={handleClick}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNext(); } }}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -119,6 +110,9 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
                   muted={isMuted}
                   playsInline
                 />
+                {currentItem.description && (
+                  <p className="sr-only">{currentItem.description}</p>
+                )}
                 
                 {/* Overlay Mute Toggle Button */}
                 <button

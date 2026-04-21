@@ -48,7 +48,7 @@ export default function MobileMenu() {
         }`}
         style={{ fontFamily: FONT, height: HEADER_H, top: 12 }}
       >
-        <a href="/" className="text-black">
+        <a href="/" className="text-black" aria-label="Karlsson — Home">
           <KarlssonLogo className="w-20 h-auto" />
         </a>
 

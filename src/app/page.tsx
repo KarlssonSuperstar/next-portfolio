@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent, MotionValue } from "framer-motion";
-import PaintSplashCanvas from "@/components/PaintSplashCanvas";
 import ContactForm from "@/components/ContactForm";
 import CanvasImageSequence from "@/components/CanvasImageSequence";
 import CaseStudy from "@/components/CaseStudy";
@@ -169,7 +168,7 @@ export default function Home() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="mt-4 text-lg md:text-xl font-medium uppercase tracking-[0.4em] text-white/50 drop-shadow-md"
+                className="mt-4 text-lg md:text-xl font-medium uppercase tracking-[0.4em] text-white/70 drop-shadow-md"
               >
                 Erik Karlsson
               </motion.p>
@@ -209,8 +208,8 @@ export default function Home() {
             externalLink={true}
             color="#160800" // Kept exactly from previous Aura OS setting
             media={[
-              { src: "/Images/MindClimber/Loggo.mp4", type: "video" },
-              { src: "/Images/MindClimber/Promo.mp4", type: "video" },
+              { src: "/Images/MindClimber/Loggo.mp4", type: "video", description: "Mind Climber logo animation: a mountain climber icon assembles from fragments, representing the app's step-by-step recovery journey metaphor." },
+              { src: "/Images/MindClimber/Promo.mp4", type: "video", description: "Mind Climber app promo: animated walkthrough of the mobile interface showing activity tracking, wellbeing scores, and guided recovery paths." },
               { src: "/Images/MindClimber/mobile1.png", type: "image" },
               { src: "/Images/MindClimber/mobile2.png", type: "image" },
               { src: "/Images/MindClimber/mobile3.png", type: "image" },
@@ -236,8 +235,8 @@ export default function Home() {
           color="#050a1a" // Example massive deep blue background
           heroSplitReverse={true}
           heroSplitMedia={[
-            { src: "/Images/T-HiveWrapped/Erik_Karlsson_T-Hive-Wrapped.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] object-bottom md:object-right" },
-            { src: "/Images/T-HiveWrapped/T-hive-mobile.png", type: "image", caption: "T-Hive mobile app design." }
+            { src: "/Images/T-HiveWrapped/Erik_Karlsson_T-Hive-Wrapped.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] md:!w-auto object-bottom object-left", description: "T-Suite Wrapped 2026 promotional video: a retro 90s pixel-game style animation revealing T-Hive's annual operational statistics and milestones in an engaging, shareable format.", caption: "T-Suite Wrapped 2026", containerClassName: "w-full md:w-auto flex-shrink-0 flex flex-col" },
+            { src: "/Images/T-HiveWrapped/T-hive-mobile.png", type: "image", caption: "T-Suite Wrapped 2026 on mobile", containerClassName: "w-full md:flex-1 flex flex-col" }
           ]}
         />
         </div>
@@ -263,7 +262,7 @@ export default function Home() {
             { 
               src: "/Images/Vyse Tech/vyse techOver2.png", 
               type: "image", 
-              caption: "Vyse Tech interface overview.",
+              caption: "Vyse Tech loading interface view.",
               containerClassName: "w-full md:flex-1 flex flex-col"
             },
             { 
@@ -271,6 +270,7 @@ export default function Home() {
               type: "video", 
               objectFit: "contain", 
               className: "!h-auto w-full md:!w-auto md:!h-[600px] object-bottom md:object-right",
+              caption: "Loading page mobile",
               containerClassName: "w-full md:w-auto flex flex-col" 
             }
           ]}
@@ -285,7 +285,7 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl mx-auto relative z-20">
             {[
-              "Figma", "Make", "Lovable", "Spline", "Framer", "Webflow", "Antigravity", "React", "Next.js", "Creative Cloud", "Vercel", "Tailwind CSS"
+              "Figma", "Figma Make", "Lovable", "Spline", "Framer", "Webflow", "Antigravity", "React", "Next.js", "Creative Cloud", "Vercel", "Tailwind CSS", "WCAG"
             ].map((tool) => (
               <div key={tool} className="py-4 px-8 border border-white/10 rounded-full text-2xl md:text-3xl font-light text-white hover:bg-white hover:text-black transition-colors cursor-pointer pointer-events-auto">
                 {tool}
