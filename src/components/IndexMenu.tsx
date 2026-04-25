@@ -3,11 +3,13 @@ import type { Transition } from "framer-motion";
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 
-const navItems = [
+export interface NavItem {
+  label: string;
+  id: string;
+}
+
+const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "NARRATIVE", id: "about" },
-  { label: "01 MIND CLIMBER", id: "mind-climber" },
-  { label: "02 T-SUITE", id: "t-suite" },
-  { label: "03 VYSE TECH", id: "vyse-tech" },
   { label: "APPS & TOOLS", id: "tools" },
   { label: "CONTACT", id: "contact" },
 ];
@@ -19,7 +21,7 @@ const PlusIcon = () => (
 const SPRING: Transition = { type: "spring", stiffness: 260, damping: 28 };
 const FADE: Transition = { duration: 0.25, ease: "easeInOut" };
 
-export default function IndexMenu() {
+export default function IndexMenu({ navItems = DEFAULT_NAV_ITEMS }: { navItems?: NavItem[] }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

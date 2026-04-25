@@ -16,11 +16,13 @@ const KarlssonLogo = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const navItems = [
+export interface NavItem {
+  label: string;
+  id: string;
+}
+
+const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "Narrative", id: "about" },
-  { label: "01 Mind Climber", id: "mind-climber" },
-  { label: "02 T-Suite", id: "t-suite" },
-  { label: "03 Vyse Tech", id: "vyse-tech" },
   { label: "Apps & Tools", id: "tools" },
   { label: "Contact", id: "contact" },
 ];
@@ -28,7 +30,7 @@ const navItems = [
 const FONT = "var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif";
 const HEADER_H = 56; // px
 
-export default function MobileMenu() {
+export default function MobileMenu({ navItems = DEFAULT_NAV_ITEMS }: { navItems?: NavItem[] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
