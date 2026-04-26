@@ -12,11 +12,13 @@ export type MediaType = {
 
 interface MediaCarouselProps {
   items: MediaType[];
+  glowColor?: string;
 }
 
 import { VolumeOnIcon, VolumeOffIcon } from "./icons";
+import SpotlightCard from "./SpotlightCard";
 
-export default function MediaCarousel({ items }: MediaCarouselProps) {
+export default function MediaCarousel({ items, glowColor }: MediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -81,8 +83,9 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
   return (
     <div className={`w-full flex flex-col items-start ${items.length > 1 || (items.length === 1 && currentItem.caption) ? 'gap-4' : ''}`}>
       {/* Main Image/Video Container */}
+      <SpotlightCard glowColor={glowColor} className="w-full aspect-video rounded-sm overflow-hidden backdrop-blur-sm">
       <div 
-        className={`w-full aspect-video relative overflow-hidden group ${items.length > 1 ? 'cursor-pointer' : ''}`}
+        className={`w-full h-full relative overflow-hidden group ${items.length > 1 ? 'cursor-pointer' : ''}`}
         role={items.length > 1 ? "button" : undefined}
         tabIndex={0}
         aria-label={`Slide ${activeIndex + 1} of ${items.length}. Press to advance.`}
@@ -135,6 +138,7 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
           </motion.div>
         </AnimatePresence>
       </div>
+      </SpotlightCard>
 
       {/* Indicators */}
       {items.length > 1 && (

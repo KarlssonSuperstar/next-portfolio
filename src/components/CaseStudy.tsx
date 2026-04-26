@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import MediaCarousel, { MediaType } from "./MediaCarousel";
+import SpotlightCard from "./SpotlightCard";
 import { VolumeOnIcon, VolumeOffIcon } from "./icons";
 
 export interface MediaContent {
@@ -74,6 +75,7 @@ export default function CaseStudy({
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
+              <SpotlightCard glowColor={color} className="w-full h-full">
               {items[0].type === 'video' ? (
                 <>
                   <video 
@@ -102,6 +104,7 @@ export default function CaseStudy({
                   />
                 </>
               )}
+              </SpotlightCard>
             </motion.div>
             {items[0].caption && (
               <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
@@ -119,6 +122,7 @@ export default function CaseStudy({
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
               className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
+              <SpotlightCard glowColor={color} className="w-full h-full">
               {items[1].type === 'video' ? (
                 <>
                   <video 
@@ -147,6 +151,7 @@ export default function CaseStudy({
                   />
                 </>
               )}
+              </SpotlightCard>
             </motion.div>
             {items[1].caption && (
               <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
@@ -205,7 +210,7 @@ export default function CaseStudy({
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="w-full relative"
             >
-              <MediaCarousel items={media} />
+              <MediaCarousel items={media} glowColor={color} />
             </motion.div>
           ) : imageSrc ? (
             <motion.div 
@@ -216,7 +221,9 @@ export default function CaseStudy({
               className="w-full aspect-video bg-white/5 overflow-hidden relative group rounded-sm"
             >
                {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+               <SpotlightCard glowColor={color} className="w-full h-full">
+                 <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+               </SpotlightCard>
             </motion.div>
           ) : heroSplitMedia && heroSplitMedia.length === 2 ? (
             renderSplitMedia(heroSplitMedia, heroSplitReverse, true)
