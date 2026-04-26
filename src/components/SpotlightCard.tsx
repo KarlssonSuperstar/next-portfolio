@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 
 interface SpotlightCardProps {
   glowColor?: string; // Hex or HSL color for the spotlight
@@ -19,32 +19,42 @@ export default function SpotlightCard({
   children,
   borderRadius = 4,
 }: SpotlightCardProps) {
-  const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
 
   const syncPointer = useCallback(
-    (event: PointerEvent) => {
-      if (!container) return;
-      
+    (event: React.PointerEvent<HTMLDivElement>) => {
       const x = event.clientX;
       const y = event.clientY;
-      container.style.setProperty("--x", x.toString());
-      container.style.setProperty("--y", y.toString());
 
-      const rect = container.getBoundingClientRect();
-      const xp = (x - rect.left) / rect.width;
-      const yp = (y - rect.top) / rect.height;
-      container.style.setProperty("--xp", xp.toString());
-      container.style.setProperty("--yp", yp.toString());
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        
+        container.style.setProperty("--x", x.toString());
+        container.style.setProperty("--y", y.toString());
+
+        const rect = container.getBoundingClientRect();
+        const xp = (x - rect.left) / rect.width;
+        const yp = (y - rect.top) / rect.height;
+        container.style.setProperty("--xp", xp.toString());
+        container.style.setProperty("--yp", yp.toString());
+      });
     },
-    [container]
+    []
   );
 
   useEffect(() => {
-    if (!container) return;
-    window.addEventListener("pointermove", syncPointer);
-    return () => window.removeEventListener("pointermove", syncPointer);
-  }, [container, syncPointer]);
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
 
   const getGlowStyles = () => {
     return {
@@ -58,12 +68,8 @@ export default function SpotlightCard({
 
   return (
     <div
-      ref={(node) => {
-        setContainer(node);
-        if (containerRef.current !== node) {
-          (containerRef as any).current = node;
-        }
-      }}
+      ref={containerRef}
+      onPointerMove={syncPointer}
       data-glow
       style={getGlowStyles()}
       className={`group/spotlight relative ${className}`}
