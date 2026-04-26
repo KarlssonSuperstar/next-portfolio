@@ -62,49 +62,47 @@ export default function CaseStudy({
     const isLeftSmaller = reverse;
 
     return (
-      <div className={`w-full ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24 md:aspect-video md:max-h-[600px]'} relative`}>
-        {/* On mobile, standard flex-col. On desktop, flex-row. Absolute positioning removed as requested. */}
-        <div className="flex flex-col md:flex-row w-full h-full gap-4 md:gap-0">
+      <div className={`w-full ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24'} ${!isHero ? 'md:max-h-[600px]' : ''} relative md:aspect-video`}>
+        {/* On mobile, standard flex-col. On desktop, absolute inset-0 to perfectly fill the aspect-video container and ensure equal column heights. */}
+        <div className="flex flex-col md:flex-row w-full h-full gap-4 md:gap-0 md:absolute md:inset-0">
           
           {/* Left Item */}
-          <div className={`${isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`flex flex-col h-auto md:h-full ${isLeftSmaller ? 'w-full md:w-auto md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(-40px)" }}
+              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
+              className={`h-full relative overflow-hidden group flex justify-center bg-transparent ${isLeftSmaller ? 'w-fit mx-auto md:mx-0' : 'w-full'}`}
             >
-              <SpotlightCard glowColor={color} className="w-full h-full">
-                {items[0].type === 'video' ? (
-                  <>
-                    <video 
-                      src={items[0].src} 
-                      autoPlay loop muted={isMutedLeft} playsInline 
-                      style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                    />
-                    {items[0].description && <p className="sr-only">{items[0].description}</p>}
-                    <button
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
-                      className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                      aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
-                    >
-                      {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src={items[0].src} 
-                      alt={items[0].caption || ''} 
-                      style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                    />
-                  </>
-                )}
-              </SpotlightCard>
+              {items[0].type === 'video' ? (
+                <>
+                  <video 
+                    src={items[0].src} 
+                    autoPlay loop muted={isMutedLeft} playsInline 
+                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').replace(/\\bw-full\\b/g, '').trim()}`} 
+                  />
+                  {items[0].description && <p className="sr-only">{items[0].description}</p>}
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
+                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                    aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
+                  >
+                    {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={items[0].src} 
+                    alt={items[0].caption || ''} 
+                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                    className={`h-[400px] md:h-full ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').replace(/\\bw-full\\b/g, '').trim()}`} 
+                  />
+                </>
+              )}
             </motion.div>
             {items[0].caption && (
               <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
@@ -114,44 +112,42 @@ export default function CaseStudy({
           </div>
 
           {/* Right Item */}
-          <div className={`${!isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`flex flex-col h-auto md:h-full ${!isLeftSmaller ? 'w-full md:w-auto md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(-40px)" }}
+              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
+              className={`h-full relative overflow-hidden group flex justify-center bg-transparent ${!isLeftSmaller ? 'w-fit mx-auto md:mx-0' : 'w-full'}`}
             >
-              <SpotlightCard glowColor={color} className="w-full h-full">
-                {items[1].type === 'video' ? (
-                  <>
-                    <video 
-                      src={items[1].src} 
-                      autoPlay loop muted={isMutedRight} playsInline 
-                      style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                    />
-                    {items[1].description && <p className="sr-only">{items[1].description}</p>}
-                    <button
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
-                      className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                      aria-label={isMutedRight ? "Unmute video" : "Mute video"}
-                    >
-                      {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src={items[1].src} 
-                      alt={items[1].caption || ''} 
-                      style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                    />
-                  </>
-                )}
-              </SpotlightCard>
+              {items[1].type === 'video' ? (
+                <>
+                  <video 
+                    src={items[1].src} 
+                    autoPlay loop muted={isMutedRight} playsInline 
+                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').replace(/\\bw-full\\b/g, '').trim()}`} 
+                  />
+                  {items[1].description && <p className="sr-only">{items[1].description}</p>}
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
+                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                    aria-label={isMutedRight ? "Unmute video" : "Mute video"}
+                  >
+                    {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={items[1].src} 
+                    alt={items[1].caption || ''} 
+                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                    className={`h-[400px] md:h-full ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').replace(/\\bw-full\\b/g, '').trim()}`} 
+                  />
+                </>
+              )}
             </motion.div>
             {items[1].caption && (
               <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
