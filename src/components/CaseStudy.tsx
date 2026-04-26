@@ -55,76 +55,106 @@ export default function CaseStudy({
 
   const renderSplitMedia = (items: MediaContent[], reverse: boolean, isHero: boolean) => {
     if (!items || items.length !== 2) return null;
-    return (
-      <div className={`flex flex-col md:flex-row w-full gap-12 md:gap-0 ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24'}`}>
-        {/* Left Image */}
-        <div className={items[0].containerClassName || `w-full ${reverse ? 'md:w-[35%]' : 'md:w-[65%]'} flex flex-col`}>
-          <motion.div 
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
-            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-            viewport={{ once: true, margin: "0px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full relative overflow-hidden group"
-          >
-            {items[0].type === 'video' ? (
-              <>
-                <video src={items[0].src} autoPlay loop muted={isMutedLeft} playsInline style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[0].className || ''}`} />
-                {items[0].description && <p className="sr-only">{items[0].description}</p>}
-                <button
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
-                  className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                  aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
-                >
-                  {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                </button>
-              </>
-            ) : (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={items[0].src} alt={items[0].caption || ''} style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[0].className || ''}`} />
-              </>
-            )}
-          </motion.div>
-          {items[0].caption && (
-            <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
-              {items[0].caption}
-            </p>
-          )}
-        </div>
+    
+    // We treat 'reverse' as the flag that makes the left item the "smaller" one.
+    // If reverse is false, the right item is the "smaller" one.
+    const isLeftSmaller = reverse;
 
-        {/* Right Image */}
-        <div className={items[1].containerClassName || `w-full ${reverse ? 'md:w-[65%]' : 'md:w-[35%]'} flex flex-col`}>
-          <motion.div 
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
-            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-            viewport={{ once: true, margin: "0px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="w-full relative overflow-hidden group"
-          >
-            {items[1].type === 'video' ? (
-              <>
-                <video src={items[1].src} autoPlay loop muted={isMutedRight} playsInline style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[1].className || ''}`} />
-                {items[1].description && <p className="sr-only">{items[1].description}</p>}
-                <button
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
-                  className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                  aria-label={isMutedRight ? "Unmute video" : "Mute video"}
-                >
-                  {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                </button>
-              </>
-            ) : (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={items[1].src} alt={items[1].caption || ''} style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} className={`w-full h-[300px] md:h-[600px] ${items[1].className || ''}`} />
-              </>
+    return (
+      <div className={`w-full ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24 md:aspect-video md:max-h-[600px]'} relative`}>
+        {/* On mobile, standard flex-col. On desktop, flex-row. Absolute positioning removed as requested. */}
+        <div className="flex flex-col md:flex-row w-full h-full gap-4 md:gap-0">
+          
+          {/* Left Item */}
+          <div className={`w-full ${isLeftSmaller ? 'md:w-auto md:flex-none md:max-w-[35%]' : 'md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+            <motion.div 
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              viewport={{ once: true, margin: "0px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full h-full relative overflow-hidden group flex justify-center bg-black/20"
+            >
+              {items[0].type === 'video' ? (
+                <>
+                  <video 
+                    src={items[0].src} 
+                    autoPlay loop muted={isMutedLeft} playsInline 
+                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                  />
+                  {items[0].description && <p className="sr-only">{items[0].description}</p>}
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
+                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                    aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
+                  >
+                    {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={items[0].src} 
+                    alt={items[0].caption || ''} 
+                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                  />
+                </>
+              )}
+            </motion.div>
+            {items[0].caption && (
+              <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
+                {items[0].caption}
+              </p>
             )}
-          </motion.div>
-          {items[1].caption && (
-            <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
-              {items[1].caption}
-            </p>
-          )}
+          </div>
+
+          {/* Right Item */}
+          <div className={`w-full ${!isLeftSmaller ? 'md:w-auto md:flex-none md:max-w-[35%]' : 'md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+            <motion.div 
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              viewport={{ once: true, margin: "0px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              className="w-full h-full relative overflow-hidden group flex justify-center bg-black/20"
+            >
+              {items[1].type === 'video' ? (
+                <>
+                  <video 
+                    src={items[1].src} 
+                    autoPlay loop muted={isMutedRight} playsInline 
+                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                  />
+                  {items[1].description && <p className="sr-only">{items[1].description}</p>}
+                  <button
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
+                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                    aria-label={isMutedRight ? "Unmute video" : "Mute video"}
+                  >
+                    {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={items[1].src} 
+                    alt={items[1].caption || ''} 
+                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                  />
+                </>
+              )}
+            </motion.div>
+            {items[1].caption && (
+              <p className="mt-4 text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
+                {items[1].caption}
+              </p>
+            )}
+          </div>
+
         </div>
       </div>
     );

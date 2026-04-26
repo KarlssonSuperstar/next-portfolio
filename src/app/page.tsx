@@ -252,7 +252,7 @@ export default async function Home() {
                   color="#050a1a"
                   heroSplitReverse={true}
                   heroSplitMedia={[
-                    { src: "/Images/T-HiveWrapped/Erik_Karlsson_T-Hive-Wrapped.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!h-[600px] md:!w-auto object-bottom object-left", description: "T-Suite Wrapped 2026 promotional video.", caption: "T-Suite Wrapped 2026", containerClassName: "w-full md:w-auto flex-shrink-0 flex flex-col" },
+                    { src: "/Images/T-HiveWrapped/Erik_Karlsson_T-Hive-Wrapped.mp4", type: "video", objectFit: "contain", className: "w-full object-bottom object-left", description: "T-Suite Wrapped 2026 promotional video.", caption: "T-Suite Wrapped 2026", containerClassName: "w-full md:w-auto flex-shrink-0 flex flex-col" },
                     { src: "/Images/T-HiveWrapped/T-hive-mobile.png", type: "image", caption: "T-Suite Wrapped 2026 on mobile", containerClassName: "w-full md:flex-1 flex flex-col" },
                   ]}
                 />
@@ -277,7 +277,7 @@ export default async function Home() {
                   ]}
                   subImages={[
                     { src: "/Images/Vyse Tech/vyse techOver2.png", type: "image", caption: "Vyse Tech loading interface view.", containerClassName: "w-full md:flex-1 flex flex-col" },
-                    { src: "/Images/Vyse Tech/Instagram.mp4", type: "video", objectFit: "contain", className: "!h-auto w-full md:!w-auto md:!h-[600px] object-bottom md:object-right", caption: "Loading page mobile", containerClassName: "w-full md:w-auto flex flex-col" },
+                    { src: "/Images/Vyse Tech/Instagram.mp4", type: "video", objectFit: "contain", className: "w-full object-bottom md:object-right", caption: "Loading page mobile", containerClassName: "w-full md:w-auto flex flex-col" },
                   ]}
                 />
               </div>
