@@ -83,7 +83,7 @@ export default function MediaCarousel({ items, glowColor }: MediaCarouselProps) 
   return (
     <div className={`w-full flex flex-col items-start ${items.length > 1 || (items.length === 1 && currentItem.caption) ? 'gap-4' : ''}`}>
       {/* Main Image/Video Container */}
-      <SpotlightCard glowColor={glowColor} className="w-full aspect-video rounded-sm overflow-hidden backdrop-blur-sm">
+      <SpotlightCard glowColor={glowColor} className="w-full aspect-video rounded-sm backdrop-blur-sm">
       <div 
         className={`w-full h-full relative overflow-hidden group ${items.length > 1 ? 'cursor-pointer' : ''}`}
         role={items.length > 1 ? "button" : undefined}

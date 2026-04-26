@@ -70,10 +70,10 @@ export default function CaseStudy({
           <div className={`${isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
+              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
                 {items[0].type === 'video' ? (
@@ -117,10 +117,10 @@ export default function CaseStudy({
           <div className={`${!isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
+              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
                 {items[1].type === 'video' ? (
@@ -205,7 +205,7 @@ export default function CaseStudy({
           {media && media.length > 0 ? (
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="w-full relative"
@@ -215,10 +215,10 @@ export default function CaseStudy({
           ) : imageSrc ? (
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full aspect-video bg-white/5 overflow-hidden relative group rounded-sm"
+              className="w-full aspect-video bg-white/5 relative group rounded-sm"
             >
                {/* eslint-disable-next-line @next/next/no-img-element */}
                <SpotlightCard glowColor={color} className="w-full h-full">
