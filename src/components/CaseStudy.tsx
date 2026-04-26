@@ -62,18 +62,18 @@ export default function CaseStudy({
     const isLeftSmaller = reverse;
 
     return (
-      <div className={`w-full ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24 md:aspect-video md:max-h-[600px]'} relative`}>
+      <div className={`w-full ${isHero ? 'mb-4 md:mb-8' : 'mt-12 md:mt-24'} md:aspect-video md:max-h-[600px] relative`}>
         {/* On mobile, standard flex-col. On desktop, flex-row. Absolute positioning removed as requested. */}
         <div className="flex flex-col md:flex-row w-full h-full gap-4 md:gap-0">
           
           {/* Left Item */}
-          <div className={`${isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`${isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col justify-between h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
+              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-auto relative group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
                 {items[0].type === 'video' ? (
@@ -114,13 +114,13 @@ export default function CaseStudy({
           </div>
 
           {/* Right Item */}
-          <div className={`${!isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`${!isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col justify-between h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               whileInView={{ clipPath: "inset(-40px)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative group flex justify-center bg-black/20`}
+              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-auto relative group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
                 {items[1].type === 'video' ? (
