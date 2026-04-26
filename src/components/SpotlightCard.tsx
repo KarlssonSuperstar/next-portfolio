@@ -80,43 +80,43 @@ export default function SpotlightCard({
           pointer-events: none;
           content: "";
           position: absolute;
-          inset: 0;
+          inset: calc(var(--border-size) * -1);
           border: var(--border-size) solid transparent;
           border-radius: calc(var(--radius) * 1px);
-          background-attachment: fixed;
-          background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+          background-image: radial-gradient(
+            var(--spotlight-size) var(--spotlight-size) at
+            calc(var(--xp, 0.5) * 100%)
+            calc(var(--yp, 0.5) * 100%),
+            var(--glow-color),
+            transparent 100%
+          );
           background-repeat: no-repeat;
-          background-position: 50% 50%;
-          mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
-          mask-clip: padding-box, border-box;
-          mask-composite: intersect;
+          background-position: center;
+          background-size: 100% 100%;
           z-index: 10;
           opacity: 0;
           transition: opacity 0.5s ease;
         }
 
-        [data-glow]:hover::before,
-        [data-glow]:hover::after {
-          opacity: 1;
+        /* Border Glow Masking */
+        [data-glow]::before {
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: xor;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          opacity: 0;
         }
 
-        /* Border Glow */
-        [data-glow]::before {
-          background-image: radial-gradient(
-            calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
-            calc(var(--x, 0) * 1px)
-            calc(var(--y, 0) * 1px),
-            var(--glow-color),
-            transparent 100%
-          );
+        [data-glow]:hover::before {
+          opacity: 1;
         }
         
         /* Surface Glow (Inner) */
         [data-glow]::after {
           background-image: radial-gradient(
-            calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
-            calc(var(--x, 0) * 1px)
-            calc(var(--y, 0) * 1px),
+            calc(var(--spotlight-size) * 1.5) calc(var(--spotlight-size) * 1.5) at
+            calc(var(--xp, 0.5) * 100%)
+            calc(var(--yp, 0.5) * 100%),
             var(--glow-color),
             transparent 100%
           );
@@ -124,7 +124,7 @@ export default function SpotlightCard({
         }
 
         [data-glow]:hover::after {
-          opacity: 0.2;
+          opacity: 0.15;
         }
       `}} />
       <div className="relative z-0 h-full w-full">

@@ -76,34 +76,34 @@ export default function CaseStudy({
               className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
-              {items[0].type === 'video' ? (
-                <>
-                  <video 
-                    src={items[0].src} 
-                    autoPlay loop muted={isMutedLeft} playsInline 
-                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                  />
-                  {items[0].description && <p className="sr-only">{items[0].description}</p>}
-                  <button
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
-                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                    aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
-                  >
-                    {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                  </button>
-                </>
-              ) : (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={items[0].src} 
-                    alt={items[0].caption || ''} 
-                    style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                  />
-                </>
-              )}
+                {items[0].type === 'video' ? (
+                  <>
+                    <video 
+                      src={items[0].src} 
+                      autoPlay loop muted={isMutedLeft} playsInline 
+                      style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    />
+                    {items[0].description && <p className="sr-only">{items[0].description}</p>}
+                    <button
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedLeft(!isMutedLeft); }}
+                      className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                      aria-label={isMutedLeft ? "Unmute video" : "Mute video"}
+                    >
+                      {isMutedLeft ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src={items[0].src} 
+                      alt={items[0].caption || ''} 
+                      style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
+                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    />
+                  </>
+                )}
               </SpotlightCard>
             </motion.div>
             {items[0].caption && (
@@ -123,34 +123,34 @@ export default function CaseStudy({
               className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
               <SpotlightCard glowColor={color} className="w-full h-full">
-              {items[1].type === 'video' ? (
-                <>
-                  <video 
-                    src={items[1].src} 
-                    autoPlay loop muted={isMutedRight} playsInline 
-                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                  />
-                  {items[1].description && <p className="sr-only">{items[1].description}</p>}
-                  <button
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
-                    className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
-                    aria-label={isMutedRight ? "Unmute video" : "Mute video"}
-                  >
-                    {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
-                  </button>
-                </>
-              ) : (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={items[1].src} 
-                    alt={items[1].caption || ''} 
-                    style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
-                  />
-                </>
-              )}
+                {items[1].type === 'video' ? (
+                  <>
+                    <video 
+                      src={items[1].src} 
+                      autoPlay loop muted={isMutedRight} playsInline 
+                      style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    />
+                    {items[1].description && <p className="sr-only">{items[1].description}</p>}
+                    <button
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsMutedRight(!isMutedRight); }}
+                      className="absolute bottom-4 right-4 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:bg-black/60 hover:text-white transition-all backdrop-blur-sm opacity-100 md:opacity-0 group-hover:opacity-100"
+                      aria-label={isMutedRight ? "Unmute video" : "Mute video"}
+                    >
+                      {isMutedRight ? <VolumeOffIcon /> : <VolumeOnIcon />}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src={items[1].src} 
+                      alt={items[1].caption || ''} 
+                      style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
+                      className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    />
+                  </>
+                )}
               </SpotlightCard>
             </motion.div>
             {items[1].caption && (
