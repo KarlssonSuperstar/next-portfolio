@@ -172,6 +172,7 @@ export function toCarouselItem(item: SanityMediaItem): MediaType {
     src: resolveMediaSrc(item),
     type: item.mediaType,
     description: item.description,
+    caption: item.caption,
   };
 }
 

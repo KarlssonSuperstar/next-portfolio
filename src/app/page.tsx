@@ -9,6 +9,7 @@ import IndexMenu from "@/components/IndexMenu";
 import MobileMenu from "@/components/MobileMenu";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import type { NavItem } from "@/components/IndexMenu";
+import Link from "next/link";
 
 import {
   fetchProjects,
@@ -115,7 +116,7 @@ export default async function Home() {
       {/* Desktop overlay */}
       <div className="fixed inset-0 pointer-events-none z-[200] hidden md:flex justify-center px-4 md:px-0">
         <div className="w-full lg:w-[calc(100%-48px)] max-w-[1440px] h-full relative">
-          <a
+          <Link
             href="/"
             className="absolute top-12 left-4 pointer-events-auto text-white hover:text-white/70 transition-colors"
           >
@@ -126,7 +127,7 @@ export default async function Home() {
               className="w-20 h-auto"
               style={{ filter: "invert(1)" }}
             />
-          </a>
+          </Link>
           <IndexMenu navItems={navItems} />
           <ScrollToTopButton mode="desktop" />
         </div>

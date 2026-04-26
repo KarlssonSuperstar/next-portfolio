@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 // Inline logo SVG — uses currentColor so parent text color controls fill
 const KarlssonLogo = ({ className }: { className?: string }) => (
@@ -50,9 +51,9 @@ export default function MobileMenu({ navItems = DEFAULT_NAV_ITEMS }: { navItems?
         }`}
         style={{ fontFamily: FONT, height: HEADER_H, top: 12 }}
       >
-        <a href="/" className="text-black" aria-label="Karlsson — Home">
+        <Link href="/" className="text-black" aria-label="Karlsson — Home">
           <KarlssonLogo className="w-20 h-auto" />
-        </a>
+        </Link>
 
         {/* Hamburger ↔ X */}
         <button

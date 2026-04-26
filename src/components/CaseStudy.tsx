@@ -66,13 +66,13 @@ export default function CaseStudy({
         <div className="flex flex-col md:flex-row w-full h-full gap-4 md:gap-0">
           
           {/* Left Item */}
-          <div className={`w-full ${isLeftSmaller ? 'md:w-auto md:flex-none md:max-w-[35%]' : 'md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`${isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               whileInView={{ clipPath: "inset(0 0% 0 0)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full relative overflow-hidden group flex justify-center bg-black/20"
+              className={`${isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
               {items[0].type === 'video' ? (
                 <>
@@ -80,7 +80,7 @@ export default function CaseStudy({
                     src={items[0].src} 
                     autoPlay loop muted={isMutedLeft} playsInline 
                     style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
                   />
                   {items[0].description && <p className="sr-only">{items[0].description}</p>}
                   <button
@@ -98,7 +98,7 @@ export default function CaseStudy({
                     src={items[0].src} 
                     alt={items[0].caption || ''} 
                     style={{ objectFit: items[0].objectFit || 'cover', objectPosition: items[0].objectPosition }} 
-                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[0].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
                   />
                 </>
               )}
@@ -111,13 +111,13 @@ export default function CaseStudy({
           </div>
 
           {/* Right Item */}
-          <div className={`w-full ${!isLeftSmaller ? 'md:w-auto md:flex-none md:max-w-[35%]' : 'md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
+          <div className={`${!isLeftSmaller ? 'w-fit mx-auto md:mx-0 md:flex-none md:max-w-[35%]' : 'w-full md:flex-1'} flex flex-col h-auto ${!isHero ? 'md:h-full' : ''}`}>
             <motion.div 
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               whileInView={{ clipPath: "inset(0 0% 0 0)" }}
               viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className="w-full h-full relative overflow-hidden group flex justify-center bg-black/20"
+              className={`${!isLeftSmaller ? 'w-fit' : 'w-full'} h-full relative overflow-hidden group flex justify-center bg-black/20`}
             >
               {items[1].type === 'video' ? (
                 <>
@@ -125,7 +125,7 @@ export default function CaseStudy({
                     src={items[1].src} 
                     autoPlay loop muted={isMutedRight} playsInline 
                     style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
                   />
                   {items[1].description && <p className="sr-only">{items[1].description}</p>}
                   <button
@@ -143,7 +143,7 @@ export default function CaseStudy({
                     src={items[1].src} 
                     alt={items[1].caption || ''} 
                     style={{ objectFit: items[1].objectFit || 'cover', objectPosition: items[1].objectPosition }} 
-                    className={`${!isHero ? 'h-[400px] md:h-full' : 'h-auto'} ${!isLeftSmaller ? 'w-full md:w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
+                    className={`max-h-[600px] h-auto ${!isHero ? 'md:h-full' : ''} ${!isLeftSmaller ? 'w-auto' : 'w-full'} ${(items[1].className || '').replace(/md:!h-\[600px\]/g, '').replace(/!h-auto/g, '').trim()}`} 
                   />
                 </>
               )}

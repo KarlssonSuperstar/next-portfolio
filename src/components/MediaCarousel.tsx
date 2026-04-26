@@ -7,6 +7,7 @@ export type MediaType = {
   src: string;
   type: "video" | "image";
   description?: string;
+  caption?: string;
 };
 
 interface MediaCarouselProps {
@@ -78,11 +79,11 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
   const currentItem = items[activeIndex];
 
   return (
-    <div className="w-full flex flex-col items-start gap-4">
+    <div className={`w-full flex flex-col items-start ${items.length > 1 || (items.length === 1 && currentItem.caption) ? 'gap-4' : ''}`}>
       {/* Main Image/Video Container */}
       <div 
-        className="w-full aspect-video relative overflow-hidden group cursor-pointer"
-        role="button"
+        className={`w-full aspect-video relative overflow-hidden group ${items.length > 1 ? 'cursor-pointer' : ''}`}
+        role={items.length > 1 ? "button" : undefined}
         tabIndex={0}
         aria-label={`Slide ${activeIndex + 1} of ${items.length}. Press to advance.`}
         onClick={handleClick}
@@ -136,21 +137,30 @@ export default function MediaCarousel({ items }: MediaCarouselProps) {
       </div>
 
       {/* Indicators */}
-      <div className="flex gap-2 w-full max-w-[200px] mt-1 pl-1">
-        {items.map((_, idx) => (
-          <button
-             key={idx}
-             onClick={(e) => {
-               e.stopPropagation();
-               handleSelect(idx);
-             }}
-             className={`h-[2px] flex-1 transition-colors duration-300 ${
-               idx === activeIndex ? "bg-white" : "bg-white/30 hover:bg-white/60"
-             }`}
-             aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
-      </div>
+      {items.length > 1 && (
+        <div className="flex gap-2 w-full max-w-[200px] mt-1 pl-1">
+          {items.map((_, idx) => (
+            <button
+               key={idx}
+               onClick={(e) => {
+                 e.stopPropagation();
+                 handleSelect(idx);
+               }}
+               className={`h-[2px] flex-1 transition-colors duration-300 ${
+                 idx === activeIndex ? "bg-white" : "bg-white/30 hover:bg-white/60"
+               }`}
+               aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Single-item Caption */}
+      {items.length === 1 && currentItem.caption && (
+        <p className="text-sm md:text-base font-medium opacity-60 tracking-wide px-4 md:px-0">
+          {currentItem.caption}
+        </p>
+      )}
     </div>
   );
 }
