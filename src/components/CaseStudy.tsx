@@ -300,35 +300,37 @@ export default function CaseStudy({
         <div className="flex-1 flex flex-col gap-16 md:gap-24">
           
           {/* Media Presentation: Carousel, Single Image, or Split Hero Media */}
-          {media && media.length > 0 ? (
-            <motion.div 
-              initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(-40px)" }}
-              viewport={{ once: true, margin: "0px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full relative"
-            >
-              <MediaCarousel items={media} glowColor={color} />
-            </motion.div>
-          ) : imageSrc ? (
-            <motion.div 
-              initial={{ clipPath: "inset(0 100% 0 0)" }}
-              whileInView={{ clipPath: "inset(-40px)" }}
-              viewport={{ once: true, margin: "0px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full aspect-video bg-white/5 relative group rounded-sm"
-            >
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <SpotlightCard glowColor={color} className="w-full h-full">
-                 <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
-               </SpotlightCard>
-            </motion.div>
-          ) : heroSplitMedia && heroSplitMedia.length === 2 ? (
-            renderSplitMedia(heroSplitMedia, heroSplitReverse, true)
-          ) : null}
+          <div className={(!media?.length && !imageSrc && heroSplitMedia?.length === 2) ? "order-2 md:order-none" : ""}>
+            {media && media.length > 0 ? (
+              <motion.div 
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                whileInView={{ clipPath: "inset(-40px)" }}
+                viewport={{ once: true, margin: "0px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full relative"
+              >
+                <MediaCarousel items={media} glowColor={color} />
+              </motion.div>
+            ) : imageSrc ? (
+              <motion.div 
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                whileInView={{ clipPath: "inset(-40px)" }}
+                viewport={{ once: true, margin: "0px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full aspect-video bg-white/5 relative group rounded-sm"
+              >
+                 {/* eslint-disable-next-line @next/next/no-img-element */}
+                 <SpotlightCard glowColor={color} className="w-full h-full">
+                   <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+                 </SpotlightCard>
+              </motion.div>
+            ) : heroSplitMedia && heroSplitMedia.length === 2 ? (
+              renderSplitMedia(heroSplitMedia, heroSplitReverse, true)
+            ) : null}
+          </div>
 
           {/* Split Typography Grids */}
-          <div className="grid grid-cols-1 [@media(min-width:1445px)]:grid-cols-2 gap-12">
+          <div className={`grid grid-cols-1 [@media(min-width:1445px)]:grid-cols-2 gap-12 ${(!media?.length && !imageSrc && heroSplitMedia?.length === 2) ? "order-1 md:order-none" : ""}`}>
             
             {/* Left Col: Title & Meta */}
             <motion.div
@@ -376,7 +378,9 @@ export default function CaseStudy({
           </div>
 
           {/* Sub-Images Layout */}
-          {subImages && subImages.length === 2 && renderSplitMedia(subImages, reverseSubImages, false)}
+          <div className={(!media?.length && !imageSrc && heroSplitMedia?.length === 2) ? "order-3 md:order-none" : ""}>
+            {subImages && subImages.length === 2 && renderSplitMedia(subImages, reverseSubImages, false)}
+          </div>
         </div>
       </div>
     </section>
