@@ -193,6 +193,8 @@ export default function HeroSection() {
           .hero-poster {
             --fontSize: 50px;
             --borderW: 10px;
+            height: calc(var(--fontSize)*12);
+            width: calc(var(--fontSize)*6.5);
           }
         }
         .hero-poster__base1 {
@@ -273,10 +275,10 @@ export default function HeroSection() {
           </div>
 
           <div className="hero-content">
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-[10px] md:tracking-[20px] text-center pl-[10px] w-full" style={{ transformStyle: 'preserve-3d' }}>
+            <h2 className="text-white text-[1rem] sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-[6px] md:tracking-[20px] text-center pl-[6px] md:pl-[10px] w-full" style={{ transformStyle: 'preserve-3d', whiteSpace: 'nowrap' }}>
               {splitText("Erik Karlsson", "titleChar inline-block")}
             </h2>
-            <p className="desc text-[#3d7db3] text-[10px] md:text-xs lg:text-sm font-semibold uppercase tracking-[2px] md:tracking-[4px] mt-6 pr-[10px] text-center" style={{ transformStyle: 'preserve-3d' }}>
+            <p className="desc text-[#3d7db3] text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold uppercase tracking-[2px] md:tracking-[4px] mt-4 md:mt-6 text-center w-full" style={{ transformStyle: 'preserve-3d' }}>
               Digital Designer & Digital Artist
             </p>
           </div>
