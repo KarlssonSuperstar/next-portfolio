@@ -9,7 +9,7 @@ import IndexMenu from "@/components/IndexMenu";
 import MobileMenu from "@/components/MobileMenu";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import type { NavItem } from "@/components/IndexMenu";
-import Link from "next/link";
+import LogoLink from "@/components/LogoLink";
 
 import {
   fetchProjects,
@@ -116,18 +116,7 @@ export default async function Home() {
       {/* Desktop overlay */}
       <div className="fixed inset-0 pointer-events-none z-[200] hidden md:flex justify-center px-4 md:px-0">
         <div className="w-full lg:w-[calc(100%-48px)] max-w-[1440px] h-full relative">
-          <Link
-            href="/"
-            className="absolute top-12 left-4 pointer-events-auto text-white hover:text-white/70 transition-colors"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/Images/Me/Artboard 1.svg"
-              alt="Karlsson"
-              className="w-20 h-auto"
-              style={{ filter: "invert(1)" }}
-            />
-          </Link>
+          <LogoLink />
           <IndexMenu navItems={navItems} />
           <ScrollToTopButton mode="desktop" />
         </div>
@@ -144,7 +133,7 @@ export default async function Home() {
         <div className="relative z-50 w-full -mt-1">
 
           {/* About / Narrative */}
-          <div id="about" className="bg-[#3d7db3] pt-1 relative">
+          <div id="about" className="relative w-full">
             <AboutSection
               bio={narrative?.bio}
               bioLine2={narrative?.bioLine2}
@@ -152,16 +141,8 @@ export default async function Home() {
               role={narrative?.role}
               imageSrc={narrativeImageSrc}
             />
-            <div className="absolute top-full -mt-[1px] left-0 w-full z-50 pointer-events-none text-[#3d7db3]">
-              <svg
-                viewBox="0 0 1440 200"
-                preserveAspectRatio="none"
-                className="w-full h-[100px] md:h-[150px] lg:h-[200px]"
-              >
-                <path d="M0,0 L0,200 C500,200 900,40 1440,40 L1440,0 Z" fill="currentColor" />
-              </svg>
-            </div>
           </div>
+          <HorizontalDivider color="#050505" />
 
           {/* CMS-driven projects (or hardcoded fallback) */}
           {projects.length > 0 ? (

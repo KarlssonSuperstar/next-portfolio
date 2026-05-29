@@ -18,12 +18,12 @@ export default function AboutSection({
   imageSrc = "/Images/Me/jag.png",
 }: AboutSectionProps) {
   return (
-    <section className="relative w-full py-24 md:py-48 px-6 md:px-12 lg:px-24">
+    <section className="relative w-full pt-6 pb-24 md:pt-8 md:pb-48 px-6 md:px-12 lg:px-24">
 
       {/* Mobile-only top divider */}
       <div className="md:hidden w-full flex items-center justify-center relative mb-16 -mt-12">
         <div className="w-full h-[1px] bg-white/10" />
-        <div className="absolute w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-[#3d7db3] rotate-45">
+        <div className="absolute w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-[#050505] rotate-45">
           <div className="w-1.5 h-1.5 border border-white/40" />
           <div className="w-1.5 h-1.5 border border-white/40 absolute -left-1" />
           <div className="w-1.5 h-1.5 border border-white/40 absolute -right-1" />
@@ -36,7 +36,7 @@ export default function AboutSection({
 
         {/* Desktop Center Rule with Ornament */}
         <div className="hidden md:flex absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[1px] bg-white/10 flex-col items-center justify-center">
-          <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-[#3d7db3] rotate-45">
+          <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center bg-[#050505] rotate-45">
             <div className="w-1.5 h-1.5 border border-white/40" />
             <div className="w-1.5 h-1.5 border border-white/40 absolute -left-1" />
             <div className="w-1.5 h-1.5 border border-white/40 absolute -right-1" />
