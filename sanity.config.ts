@@ -47,6 +47,11 @@ export default defineConfig({
               .title("Projects")
               .schemaType("project")
               .child(S.documentTypeList("project").title("Projects")),
+
+            S.listItem()
+              .title("Videosidor (olistade)")
+              .schemaType("videoPage")
+              .child(S.documentTypeList("videoPage").title("Videosidor (olistade)")),
           ]),
     }),
     visionTool(),
